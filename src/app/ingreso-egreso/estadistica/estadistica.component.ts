@@ -16,15 +16,13 @@ import { ActivateLoadingAction, DeactivateLoadingAction } from 'src/app/shared/u
 })
 export class EstadisticaComponent implements OnInit, OnDestroy {
 
-  items:IngresoEgreso[]=[];
+  public items:IngresoEgreso[]=[];
   public isLoading:boolean;
 
-  subcriptionStadistic:Subscription = new Subscription();
-  subscriptionLoading:Subscription = new Subscription();
-  totalIngresos:any;
-  totalEgresos:any;
-  cantIngresos:any;
-  cantEgresos:any;
+  public totalIngresos:any;
+  public totalEgresos:any;
+  public cantIngresos:any;
+  public cantEgresos:any;
 
   public pieChartLabels: Label[] = ['Ingresos', 'Egresos'];
   public pieChartData: number[] = [];
@@ -34,35 +32,32 @@ export class EstadisticaComponent implements OnInit, OnDestroy {
       backgroundColor: ['rgba(40, 167, 69, 1)', 'rgba(220, 53, 69, 1)'],
     },
   ];
+
+  private _subcriptionStadistic:Subscription = new Subscription();
+  private _subscriptionLoading:Subscription = new Subscription();
   
   constructor(
     private _ingresoEgresoService:IngresoEgresoService,
-    private store: Store<AppState>,
+    private _store: Store<AppState>,
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new ActivateLoadingAction());
+    this._store.dispatch(new ActivateLoadingAction());
 
-    this.subscriptionLoading= this.store.select('ui').subscribe( ui => {
+    this._subscriptionLoading= this._store.select('ui').subscribe( ui => {
       this.isLoading = ui.isLoading;
-      //console.log(this.isLoading)
     });
 
-
-    this.subcriptionStadistic = this.store.select('IE').pipe(
-      //tap(x=>console.log(x)),
-      filter(IE => IE.items.length>=0),
+    this._subcriptionStadistic = this._store.select('IE').pipe(
+      filter(IE => IE.items!=null),
     )
     .subscribe(IE => {
       this.items = IE.items;
-      //console.log(this.items===[])
-      this.calculate(this.items);
-      if(this.items.length>=0){
-        this.store.dispatch(new DeactivateLoadingAction());
+      if(this.items){
+        this.calculate(this.items);
+        this._store.dispatch(new DeactivateLoadingAction());
       }
     })
-
-
   }
 
   calculate(items:IngresoEgreso[]){
@@ -85,8 +80,8 @@ export class EstadisticaComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subcriptionStadistic.unsubscribe();
-    this.subscriptionLoading.unsubscribe();
+    this._subcriptionStadistic.unsubscribe();
+    this._subscriptionLoading.unsubscribe();
   }
 
 }

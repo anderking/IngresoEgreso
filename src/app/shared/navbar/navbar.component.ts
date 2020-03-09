@@ -13,16 +13,17 @@ import { filter, tap } from 'rxjs/operators';
 })
 export class NavbarComponent implements OnInit {
 
-  subscrption:Subscription = new Subscription();
-  user:User;
+  public user:User;
+
+  private _subscription:Subscription = new Subscription();
 
   constructor(
-    private store:Store<AppState>
+    private _store:Store<AppState>
   ) { }
 
   ngOnInit() {
 
-    this.subscrption = this.store.select('auth').pipe(
+    this._subscription = this._store.select('auth').pipe(
       filter(auth=>auth.user!=null)
     )
     .subscribe(auth=>{

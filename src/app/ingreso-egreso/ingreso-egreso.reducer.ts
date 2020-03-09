@@ -6,7 +6,7 @@ export interface IngresoEgresoState {
 }
 
 const initState: IngresoEgresoState = {
-    items:[]
+    items:null
 }
 
 export function ingresoEgresoReducer(state=initState, action:IEActions.actions):IngresoEgresoState{

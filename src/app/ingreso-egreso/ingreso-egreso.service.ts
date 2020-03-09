@@ -18,59 +18,58 @@ import { SetItemsAction, UnsetItemsAction } from './ingreso-egreso.actions';
 })
 export class IngresoEgresoService {
 
-  IngresoEgresoListenerSubscription:Subscription = new Subscription();
-  IngresoEgresoItemsSubscription:Subscription = new Subscription();
+  private _IngresoEgresoItemsSubscription: Subscription = new Subscription();
+  private _IngresoEgresoListenerSubscription: Subscription = new Subscription();
 
   constructor(
-    public afAuth: AngularFireAuth,
-    public authService:AuthService,
-    private router:Router,
-    private afDB:AngularFirestore,
-    private store:Store<AppState>,
+    private _afAuth: AngularFireAuth,
+    private _authService: AuthService,
+    private _router: Router,
+    private _afDB: AngularFirestore,
+    private _store: Store<AppState>,
   ) {
-   }
-
-   cancelSubscription(){
-    this.IngresoEgresoListenerSubscription.unsubscribe();
-    this.IngresoEgresoItemsSubscription.unsubscribe();
-    this.store.dispatch(new UnsetItemsAction());
-   }
-
-  createIngresoEgreso(ingresoEgreso:IngresoEgreso){
-    const user = this.authService.getUser();
-    return this.afDB.doc(`${user.uid}/ingresos-egresos`)
-    .collection('items').add({...ingresoEgreso})
   }
 
-  initIngresoEgresoListener(){
-    this.store.select('auth')
-    .pipe(filter(auth=>auth.user!=null))
-    .subscribe(auth=>{
-      this.getIngresoEgresoItems(auth.user.uid);
-    })
+  cancelSubscription() {
+    this._IngresoEgresoListenerSubscription.unsubscribe();
+    this._IngresoEgresoItemsSubscription.unsubscribe();
+    this._store.dispatch(new UnsetItemsAction());
   }
 
-  getIngresoEgresoItems(uid:string){
-    this.afDB.collection(`${uid}/ingresos-egresos/items`).snapshotChanges()
-    .pipe(
-      map(docData=>{
-        return docData.map((data:any)=>{
-          return {
-            uid: data.payload.doc.id,
-            ...data.payload.doc.data(),
+  createIngresoEgreso(ingresoEgreso: IngresoEgreso) {
+    const user = this._authService.getUser();
+    return this._afDB.doc(`${user.uid}/ingresos-egresos`)
+      .collection('items').add({ ...ingresoEgreso })
+  }
 
-          };
-        });
+  initIngresoEgresoListener() {
+    this._store.select('auth')
+      .pipe(filter(auth => auth.user != null))
+      .subscribe(auth => {
+        this.getIngresoEgresoItems(auth.user.uid);
       })
-    )
-    .subscribe((items:any[])=>{
-      this.store.dispatch(new SetItemsAction(items));
-    });
   }
 
-  deleteIngresoEgreso(uid:string){
-    const user = this.authService.getUser();
-    return this.afDB.doc(`${user.uid}/ingresos-egresos/items/${uid}`)
-    .delete();
+  getIngresoEgresoItems(uid: string) {
+    this._afDB.collection(`${uid}/ingresos-egresos/items`).snapshotChanges()
+      .pipe(
+        map(docData => {
+          return docData.map((data: any) => {
+            return {
+              uid: data.payload.doc.id,
+              ...data.payload.doc.data(),
+            };
+          });
+        })
+      )
+      .subscribe((items: any[]) => {
+        this._store.dispatch(new SetItemsAction(items));
+      });
+  }
+
+  deleteIngresoEgreso(uid: string) {
+    const user = this._authService.getUser();
+    return this._afDB.doc(`${user.uid}/ingresos-egresos/items/${uid}`)
+      .delete();
   }
 }

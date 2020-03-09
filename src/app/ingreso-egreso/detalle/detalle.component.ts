@@ -16,31 +16,31 @@ import { filter, tap } from 'rxjs/operators';
 })
 export class DetalleComponent implements OnInit {
 
-  items:IngresoEgreso[]=[];
   public isLoading:boolean;
+  public items:IngresoEgreso[]=[];
 
-  subcriptionIE:Subscription = new Subscription();
-  subscriptionLoading:Subscription = new Subscription();
+  private _subcriptionIE:Subscription = new Subscription();
+  private _subscriptionLoading:Subscription = new Subscription();
 
   constructor(
-    private store: Store<AppState>,
+    private _store: Store<AppState>,
     private _ingresoEgresoService: IngresoEgresoService
     ) { }
 
   ngOnInit() {
-    this.store.dispatch(new ActivateLoadingAction());
+    this._store.dispatch(new ActivateLoadingAction());
 
-    this.subscriptionLoading= this.store.select('ui').subscribe( ui => {
+    this._subscriptionLoading= this._store.select('ui').subscribe( ui => {
       this.isLoading = ui.isLoading;
     });
     
-    this.subcriptionIE = this.store.select('IE').pipe(
+    this._subcriptionIE = this._store.select('IE').pipe(
       filter(IE => IE.items!=null),
     )
     .subscribe(IE => {
       this.items = IE.items;
-      if(this.items.length>=0){
-        this.store.dispatch(new DeactivateLoadingAction());
+      if(this.items){
+        this._store.dispatch(new DeactivateLoadingAction());
       }
     })
   }
@@ -64,8 +64,8 @@ export class DetalleComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.subcriptionIE.unsubscribe();
-    this.subscriptionLoading.unsubscribe();
+    this._subcriptionIE.unsubscribe();
+    this._subscriptionLoading.unsubscribe();
   }
 
 }

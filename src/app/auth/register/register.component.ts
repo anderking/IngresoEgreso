@@ -12,25 +12,26 @@ import { Subscription } from 'rxjs';
 export class RegisterComponent implements OnInit, OnDestroy {
 
   public isLoading: boolean;
-  public subcription: Subscription = new Subscription();
+
+  public _subcriptionRegister: Subscription = new Subscription();
 
   constructor(
-    private authService: AuthService,
-    private store: Store<AppState>
+    private _authService: AuthService,
+    private _store: Store<AppState>
   ) { }
 
   ngOnInit() {
-    this.subcription = this.store.select('ui').subscribe(ui => {
+    this._subcriptionRegister = this._store.select('ui').subscribe(ui => {
       this.isLoading = ui.isLoading;
     });
   }
 
   ngOnDestroy() {
-    this.subcription.unsubscribe();
+    this._subcriptionRegister.unsubscribe();
   }
 
   onSubmit(data: any) {
-    this.authService.createUser(data.email, data.password, data.firstName);
+    this._authService.createUser(data.email, data.password, data.firstName);
   }
 
 }

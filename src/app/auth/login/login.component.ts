@@ -13,25 +13,26 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
 
   public isLoading: boolean;
-  public subcription: Subscription = new Subscription();
+  
+  private _subcriptionLogin: Subscription = new Subscription();
 
   constructor(
-    private authService: AuthService,
-    private store: Store<AppState>
+    private _authService: AuthService,
+    private _store: Store<AppState>
   ) { }
 
   ngOnInit() {
-    this.subcription = this.store.select('ui').subscribe(ui => {
+    this._subcriptionLogin = this._store.select('ui').subscribe(ui => {
       this.isLoading = ui.isLoading;
     });
   }
 
   ngOnDestroy() {
-    this.subcription.unsubscribe();
+    this._subcriptionLogin.unsubscribe();
   }
 
   onSubmit(data: any) {
-    this.authService.loginUser(data.email, data.password);
+    this._authService.loginUser(data.email, data.password);
   }
 
 }
