@@ -29,7 +29,8 @@ export class AuthService {
     private store:Store<AppState>,
   ) {
    }
-
+  
+  //Crea un usuario mediante la utenticacion solo por email y password
   createUser(email:string,password:string,firstName:string){
 
     this.store.dispatch(new ActivateLoadingAction());
@@ -60,7 +61,8 @@ export class AuthService {
       })
     })
   }
-
+  
+  // Inicia sesion solo por email y password
   loginUser(email:string,password:string){
     this.store.dispatch(new ActivateLoadingAction());
     this.afAuth.auth.signInWithEmailAndPassword(email,password)
@@ -79,11 +81,13 @@ export class AuthService {
     })
   }
 
+  //Cierra la sesion de un usuario
   logut(){
     this.afAuth.auth.signOut();
     this.router.navigate(["/login"]);
   }
 
+  //Se encarga de escuchar si el usuario autentificado ha cambiado su estado
   initAuthListener(){
     this.afAuth.authState.subscribe((fbUser:fireBase.User)=>{
       if(fbUser){
@@ -128,7 +132,8 @@ export class AuthService {
       })
     )
   }
-
+  
+  //Obtiene los datos del usuario cuando cambia su estado
   getUser(){
     return this.userListener;
   }

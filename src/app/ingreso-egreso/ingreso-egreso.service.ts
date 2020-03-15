@@ -36,12 +36,14 @@ export class IngresoEgresoService {
     this._store.dispatch(new UnsetItemsAction());
   }
 
+  //Creamos un IngresoEgreso
   createIngresoEgreso(ingresoEgreso: IngresoEgreso) {
     const user = this._authService.getUser();
     return this._afDB.doc(`${user.uid}/ingresos-egresos`)
       .collection('items').add({ ...ingresoEgreso })
   }
 
+  //Escuchamos todos los IngresoEgresos registrados.
   initIngresoEgresoListener() {
     this._store.select('auth')
       .pipe(filter(auth => auth.user != null))
@@ -50,6 +52,7 @@ export class IngresoEgresoService {
       })
   }
 
+  //Obtenemos los items de los IngresosEgresos y le asignamos el id del usuario
   getIngresoEgresoItems(uid: string) {
     this._afDB.collection(`${uid}/ingresos-egresos/items`).snapshotChanges()
       .pipe(
@@ -67,6 +70,7 @@ export class IngresoEgresoService {
       });
   }
 
+  //Eliminamos un IngresoEgreso
   deleteIngresoEgreso(uid: string) {
     const user = this._authService.getUser();
     return this._afDB.doc(`${user.uid}/ingresos-egresos/items/${uid}`)
