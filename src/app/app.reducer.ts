@@ -1,6 +1,6 @@
-import * as UIReducer from './shared/ui.reducer';
-import * as AUTHReducer from './auth/auth.reducer';
-import * as IEReducer from './ingreso-egreso/ingreso-egreso.reducer';
+import * as UIReducer from './core/store/reducers/ui.reducer';
+import * as AUTHReducer from './core/store/reducers/auth.reducer';
+import * as IEReducer from './core/store/reducers/ingreso-egreso.reducer';
 import { ActionReducerMap } from '@ngrx/store';
 
 export interface AppState{

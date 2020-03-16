@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/auth/user.model';
+import { User } from 'src/app/core/models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { filter } from 'rxjs/operators';
-import { IngresoEgresoService } from 'src/app/ingreso-egreso/ingreso-egreso.service';
-import { DeactivateLoadingAction } from '../ui.actions';
+import { IngresoEgresoService } from 'src/app/core/services/configuration/ingreso-egreso.service';
+import { DeactivateLoadingAction } from '../../core/store/actions/ui.actions';
 
 @Component({
   selector: 'app-sidebar',

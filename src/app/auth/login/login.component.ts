@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../core/services/auth/auth.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { Subscription } from 'rxjs';

@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 //Modulos personalizados
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
 
 //Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -24,12 +25,12 @@ import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    
+    AppComponent,    
   ],
   imports: [
     BrowserModule,
     AuthModule,
+    SharedModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

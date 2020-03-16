@@ -1,33 +1,37 @@
 import { NgModule } from '@angular/core';
-
 import { Routes, RouterModule } from '@angular/router';
-
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { AuthGuard } from './auth/auth.guard';
-import { AuthRedirectGuard } from './auth/auth-redirect.guard';
+import { AuthGuard } from './core/services/guard/auth.guard';
+import { AuthRedirectGuard } from './core/services/guard/auth-redirect.guard';
+import { ContainerComponent } from './shared/container/container.component';
 
 const routes: Routes = [
 
-    { path: 'login', component: LoginComponent, canActivate:[AuthRedirectGuard] },
-    { path: 'register', component: RegisterComponent, canActivate:[AuthRedirectGuard] },
+    { path: '', redirectTo: 'auth', pathMatch: 'full' },
+
     {
-        path:'',
-        loadChildren: './ingreso-egreso/ingreso-egreso.module#IngresoEgresoModule',
-        canLoad: [ AuthGuard]
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+        canLoad: [AuthRedirectGuard]
     },
-    { path: '**', redirectTo: '' }
+
+    {
+        path: 'authenticated', component: ContainerComponent,
+        loadChildren: () => import('./authenticated/authenticated.module').then(m => m.AuthenticatedModule),
+        canLoad: [AuthGuard]
+    },
+
+    { path: '**', redirectTo: 'auth' }
 ];
 
 
 @NgModule({
 
     imports: [
-        RouterModule.forRoot( routes )
+        RouterModule.forRoot(routes)
     ],
     exports: [
         RouterModule
     ]
 
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/auth/user.model';
+import { User } from 'src/app/core/models/user.model';
 import { filter, tap } from 'rxjs/operators';
 
 
