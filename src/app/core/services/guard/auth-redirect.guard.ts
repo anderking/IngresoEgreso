@@ -1,12 +1,12 @@
 import { Injectable, OnInit } from '@angular/core';
-import { CanLoad, Router } from '@angular/router';
+import { CanLoad, Router, CanActivate } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthRedirectGuard implements OnInit, CanLoad {
+export class AuthRedirectGuard implements OnInit, CanLoad, CanActivate {
 
   private IsAuth:boolean;
 
@@ -21,6 +21,10 @@ export class AuthRedirectGuard implements OnInit, CanLoad {
   }
 
   canLoad(){
+    return this.authService.isAuthRedirect().pipe(take(1))
+  }
+
+  canActivate(){
     return this.authService.isAuthRedirect().pipe(take(1))
   }
 
