@@ -12,7 +12,7 @@ const routes: Routes = [
 		[
 			{path: '', component: IngresosEgresosComponent},
 			{path: 'create', component: IngresoEgresoCreateComponent},
-			{path: 'show', component: IngresoEgresoShowComponent},
+			{path: 'show/:id', component: IngresoEgresoShowComponent},
 			{path: '**', redirectTo: '', pathMatch: 'full'},
 		]
 	},
