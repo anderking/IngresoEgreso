@@ -13,13 +13,11 @@ const routes: Routes = [
       {
         path: 'ingreso-egreso',
         loadChildren: () => import('./components/ingreso-egreso/ingreso-egreso.module').then(m => m.IngresoEgresoModule),
-        //canLoad: [AuthGuard]
       },
 
       {
         path: 'category',
         loadChildren: () => import('./components/category/category.module').then(m => m.CategoryModule),
-        //canLoad: [AuthGuard]
       },
     ]
   },

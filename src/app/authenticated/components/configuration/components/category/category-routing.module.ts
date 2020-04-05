@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoryComponent } from './category.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { CategoryCreateComponent } from './category-create/category-create.component';
+import { CategoryCreateComponent } from './category-form/category-form.component';
 import { CategoryShowComponent } from './category-show/category-show.component';
 
 const routes: Routes = [
@@ -11,7 +11,7 @@ const routes: Routes = [
 		children:
 		[
 			{path: '', component: CategoriesComponent},
-			{path: 'create', component: CategoryCreateComponent},
+			{path: 'form', component: CategoryCreateComponent},
 			{path: 'show', component: CategoryShowComponent},
 			{path: '**', redirectTo: '', pathMatch: 'full'},
 		]

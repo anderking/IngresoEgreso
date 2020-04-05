@@ -2,3 +2,6 @@
 .cursor{
     cursor: pointer;
 }
+.sidebar{
+    height: 100% !important;
+}

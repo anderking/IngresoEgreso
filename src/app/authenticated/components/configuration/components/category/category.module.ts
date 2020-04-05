@@ -7,7 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CategoryRoutingModule } from './category-routing.module';
 import { CategoryComponent } from './category.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { CategoryCreateComponent } from './category-create/category-create.component';
+import { CategoryCreateComponent } from './category-form/category-form.component';
 import { CategoryShowComponent } from './category-show/category-show.component';
 import { TokenInterceptorService } from 'src/app/core/services/token-interceptor.service';
 

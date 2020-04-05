@@ -62,7 +62,7 @@
   <div class="row justify-content-center my-3">
     <div class="col-12">
       <button class="btn btn-dark" (click)="goBack()">Regresar</button>
-      <button [routerLink]="['create']" class="btn btn-primary">Nuevo</button>
+      <button [routerLink]="['form']" class="btn btn-primary">Nuevo</button>
       <span *ngIf="2>0">
         <!--<a href="#delete-categorias" class="btn btn-danger" data-toggle="modal">Eliminar Todos</a>-->
         <div class="modal fade" id="delete-categorias" tabindex="-1" role="dialog" aria-labelledby="deletecategorias"
@@ -121,8 +121,8 @@
                     </th>
                     <td>{{item.description}}</td>
                     <td>{{item.amount}}</td>
-                    <td><button [routerLink]="['create', item.uid]" class="btn btn-info">Editar</button></td>
-                    <td><button type="button" data-toggle="modal" data-target="#delete-item-{{item.uid}}" class="btn btn-danger" data-toggle="modal">Eliminar</button></td>
+                    <td><button [routerLink]="['form', item.uid]" class="btn btn-info">Editar</button></td>
+                    <td><button type="button" data-toggle="modal" [attr.data-target] = "'#delete-item-'+ item.uid" class="btn btn-danger" data-toggle="modal">Eliminar</button></td>
                     <div class="modal fade" id="delete-item-{{item.uid}}" tabindex="-1" role="dialog"
                       aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
@@ -138,7 +138,7 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button (click)="delete(item._id)" type="button" class="btn btn-primary">Si</button>
+                            <button (click)="delete(item)" type="button" class="btn btn-primary">Si</button>
                           </div>
                         </div>
                       </div>

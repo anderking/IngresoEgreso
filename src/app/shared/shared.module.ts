@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { ContainerComponent } from './container/container.component';
+import { ModalsComponent } from './modals/modals.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { ContainerComponent } from './container/container.component';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
+    ModalsComponent,
     ContainerComponent
   ],
   imports: [
@@ -22,6 +24,7 @@ import { ContainerComponent } from './container/container.component';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
+    ModalsComponent,
     ContainerComponent,
   ]
 })

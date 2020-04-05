@@ -1,19 +1,25 @@
-<app-navbar></app-navbar>
-
-<div class="page-body-wrapper">
+<div id="wrapper">
 
   <app-sidebar></app-sidebar>
 
-  <div class="main-panel">
+  <div id="content-wrapper" class="d-flex flex-column">
 
-    <div class="content-wrapper">
+    <div id="content">
 
-      <router-outlet></router-outlet>
+      <app-navbar></app-navbar>
+
+      <div class="container-fluid">
+
+        <router-outlet></router-outlet>
+        
+      </div>
+
+      <app-footer></app-footer>
 
     </div>
-
-    <app-footer></app-footer>
 
   </div>
 
 </div>
+
+<app-modals></app-modals>
